@@ -7,6 +7,7 @@ class DatabaseTables {
         static final String COLUMN_NAME_ID = "id";
         static final String COLUMN_NAME_NAME = "name";
         static final String COLUMN_NAME_COLOR = "color";
+        static final String COLUMN_NAMN_NUMBER_OF_LEGS = "numberOfLegs";
     }
 
     static final String SQL_CREATE_TABLE_ANIMAL =
