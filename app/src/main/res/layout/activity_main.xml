@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="@string/savedText"
         app:layout_constraintBottom_toTopOf="@+id/leftButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
         android:text="@string/button2"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250px"
         android:layout_height="wrap_content"
         android:id="@+id/leftEditText"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@id/leftButton" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250px"
         android:layout_height="wrap_content"
         android:id="@+id/middleEditText"
         app:layout_constraintTop_toBottomOf="@id/leftButton"
@@ -55,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250px"
         android:layout_height="wrap_content"
         android:id="@+id/rightEditText"
         app:layout_constraintTop_toBottomOf="@id/rightButton"
