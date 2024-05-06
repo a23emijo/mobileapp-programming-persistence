@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 values.put(DatabaseTables.Animal.COLUMN_NAME_COLOR, addColor.getText().toString());
                 values.put(DatabaseTables.Animal.COLUMN_NAMN_NUMBER_OF_LEGS, addNumberOfLegs.getText().toString());
                 database.insert(DatabaseTables.Animal.TABLE_NAME, null, values);
+                addName.setText("");
+                addColor.setText("");
+                addNumberOfLegs.setText("");
             }
         });
     }
