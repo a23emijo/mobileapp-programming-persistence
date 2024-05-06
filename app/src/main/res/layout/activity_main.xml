@@ -10,9 +10,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
+        app:layout_constraintBottom_toTopOf="@+id/leftButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/textView"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/leftButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightButton"
+        app:layout_constraintBottom_toTopOf="@id/leftEditText"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        android:text="@string/button1"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rightButton"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintStart_toEndOf="@id/leftButton"
+        app:layout_constraintBottom_toTopOf="@id/rightEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/button2"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/leftEditText"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/middleEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leftButton" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middleEditText"
+        app:layout_constraintTop_toBottomOf="@id/leftButton"
+        app:layout_constraintStart_toEndOf="@id/leftEditText"
+        app:layout_constraintEnd_toStartOf="@id/rightEditText"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rightEditText"
+        app:layout_constraintTop_toBottomOf="@id/rightButton"
+        app:layout_constraintStart_toEndOf="@id/middleEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
