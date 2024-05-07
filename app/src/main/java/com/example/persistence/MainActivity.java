@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                 addName.setText("");
                 addColor.setText("");
                 addNumberOfLegs.setText("");
-                Log.d("erik", "hej hej");
             }
         });
 

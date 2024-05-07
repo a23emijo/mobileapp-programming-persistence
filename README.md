@@ -1,42 +1,89 @@
 
 # Rapport
 
-**Skriv din rapport här!**
-
-_Du kan ta bort all text som finns sedan tidigare_.
+Jag har gjort en applikation där man kan skicka data till en databas och sedan visa upp det.
+Denna applikation visar upp olika djur som har skickats in med namn, färg och antal ben.
+Man skriver sin data längst ner, klickar sedan på "WRITE"-knappen för att skicka datan till
+databasen. När man vill se datan klickan man på "READ"-knappen också visas den upp överst på
+skärmen.
 
 ## Följande grundsyn gäller dugga-svar:
 
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
-
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
-
+Koden nedan är för "WRITE"-knappen och den skickar datan som skrivits in till databasen.
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
+writeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContentValues values = new ContentValues();
+                values.put(DatabaseTables.Animal.COLUMN_NAME_NAME, addName.getText().toString());
+                values.put(DatabaseTables.Animal.COLUMN_NAME_COLOR, addColor.getText().toString());
+                values.put(DatabaseTables.Animal.COLUMN_NAME_NUMBER_OF_LEGS, addNumberOfLegs.getText().toString());
+                database.insert(DatabaseTables.Animal.TABLE_NAME, null, values);
+                addName.setText("");
+                addColor.setText("");
+                addNumberOfLegs.setText("");
+            }
+        });
+```
+
+Koden nedan skriver ut all data från databasen via "READ"-knappen som sedan visas upp på skärmen.
+```
+readButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor cursor = database.query(DatabaseTables.Animal.TABLE_NAME, null, null, null, null, null, null);
+                ArrayList<String> animals = new ArrayList<>();
+                while (cursor.moveToNext()) {
+                    animals.add("ID: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseTables.Animal.COLUMN_NAME_ID)) +
+                            " Name: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseTables.Animal.COLUMN_NAME_NAME)) +
+                            " Color: " +  cursor.getString(cursor.getColumnIndexOrThrow(DatabaseTables.Animal.COLUMN_NAME_COLOR)) +
+                            " Number of legs: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseTables.Animal.COLUMN_NAME_NUMBER_OF_LEGS)) + "\n");
+                }
+                String textAnimals = "";
+                for (String string : animals){
+                    textAnimals  = textAnimals + string;
+                }
+                readView.setText(textAnimals);
+                cursor.close();
+            }
+        });
+```
+
+Koden nedan är den som skapar de olika tabellerna i databasen.
+```
+static class Animal {
+        static final String TABLE_NAME = "animal";
+        static final String COLUMN_NAME_ID = "id";
+        static final String COLUMN_NAME_NAME = "name";
+        static final String COLUMN_NAME_COLOR = "color";
+        static final String COLUMN_NAME_NUMBER_OF_LEGS = "numberOfLegs";
     }
-}
+
+    static final String SQL_CREATE_TABLE_ANIMAL =
+            // "CREATE TABLE animal (id INTEGER PRIMARY KEY, name TEXT, color TEXT, numberOfLegs TEXT)"
+            "CREATE TABLE " + Animal.TABLE_NAME + " (" +
+                    Animal.COLUMN_NAME_ID + " INTEGER PRIMARY KEY," +
+                    Animal.COLUMN_NAME_NAME + " TEXT," +
+                    Animal.COLUMN_NAME_COLOR + " TEXT," +
+                    Animal.COLUMN_NAME_NUMBER_OF_LEGS + " INT)";
 ```
 
-Bilder läggs i samma mapp som markdown-filen.
+Koden nedan skapar ett databasnamn, i detta fall "Animal.db".
+Koden under den körs endast om det inte redan finns en databas med samma namn som det över.
+```
+private static final String DATABASE_NAME = "Animal.db";
 
-![](android.png)
+@Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL(DatabaseTables.SQL_CREATE_TABLE_ANIMAL);
+    }
+```
 
-Läs gärna:
+Bilden nedan visar hur det ser ut när man skriver in data för första gången.
+![](Screenshot_Start.jpg)
 
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+Bilden nedan visar hur det ser ut när man visar upp den data som lagts in i databasen. 
+![](Screenshot_Show_One.jpg)
+
+Bilden nedan visar hur det ser ut när man visar upp en databas som börjats fylla. 
+![](Screenshot_Show_Many.jpg)
