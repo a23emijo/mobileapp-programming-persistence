@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/textView"/>
+        android:id="@+id/readView"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -23,14 +23,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rightButton"
         app:layout_constraintBottom_toTopOf="@id/leftEditText"
-        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintTop_toBottomOf="@id/readView"
         android:text="@string/button1"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rightButton"
-        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintTop_toBottomOf="@id/readView"
         app:layout_constraintStart_toEndOf="@id/leftButton"
         app:layout_constraintBottom_toTopOf="@id/rightEditText"
         app:layout_constraintEnd_toEndOf="parent"
